@@ -4,8 +4,13 @@ if (isset($_POST["logout"])) {
     setcookie("id", "", time() - 3600);
     setcookie("key", "", time() - 3600);
     session_destroy();
+    session_unset();
+    $_SESSION = [];
 
     header("Location: login/login.php");
+}
+if (!isset($_SESSION["login"])) {
+    header('Location: login/login.php');
 }
 ?>
 <!DOCTYPE html>

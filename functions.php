@@ -66,5 +66,7 @@ function login($data){
         ';
         return false;
     }
+
+    return true;
 }
 ?>

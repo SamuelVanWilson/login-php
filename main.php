@@ -1,4 +1,13 @@
+<?php
+session_start();
+if (isset($_POST["logout"])) {
+    setcookie("id", "", time() - 3600);
+    setcookie("key", "", time() - 3600);
+    session_destroy();
 
+    header("Location: login/login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +17,8 @@
 </head>
 <body>
     <h1>Anda Berhasil Login</h1>
-    <a href="logout.php">logout</a>
+    <form action="" method="post">
+        <button type="submit" name="logout">logout</button>
+    </form>
 </body>
 </html>

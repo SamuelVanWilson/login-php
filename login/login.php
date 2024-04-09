@@ -13,26 +13,33 @@ if (isset($_POST["submit"])) {
 
         setcookie("id", $id, time() + 100);
         setcookie("key", hash('sha256', $username), time() + 100);
+
+        if (isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
+            $id = $_COOKIE["id"];
+            $user = $_COOKIE["key"];
+        
+            $getData = mysqli_fetch_assoc(query("SELECT username FROM users WHERE id = $id"));
+            if ($user === hash('sha256', $getData["username"])) {
+                $_SESSION["login"] = true;
+            }
+        }
+        
     }
 
-
-}
-
-if (isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
-    $id = $_COOKIE["id"];
-    $user = $_COOKIE["key"];
-
-    $getData = mysqli_fetch_assoc(query("SELECT username FROM users WHERE id = $id"));
-    if ($user === hash('sha256', $getData["username"])) {
+        echo '
+        <script>
+            alert("Berhasil Login")
+        </script>
+        ';
         $_SESSION["login"] = true;
-    }
+
+        header('Location: ../main.php');
 }
+
 
 if (isset($_SESSION["login"])) {
-    header('Location: ../main.php'); exit;
+    header('Location: ../main.php');
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

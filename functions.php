@@ -66,6 +66,5 @@ function login($data){
         ';
         return false;
     }
-    return mysqli_affected_rows($db);
 }
 ?>
